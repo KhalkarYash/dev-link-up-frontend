@@ -3,6 +3,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
+import { toast } from "react-toastify";
+import { BASE_URL } from "../utils/constants";
 
 export const Navbar = () => {
   const user = useSelector((store) => store.user);
@@ -10,11 +12,21 @@ export const Navbar = () => {
   const dispatch = useDispatch();
 
   const logout = async () => {
-    await axios.delete("http://localhost:7777/logout", {
+    await axios.delete( BASE_URL + "/logout", {
       withCredentials: true,
     });
     navigate("/login");
     dispatch(removeUser());
+    toast.success("Logged out successfully.", {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   };
 
   return (

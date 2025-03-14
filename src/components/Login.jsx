@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
   const [email, setEmailId] = useState("yash@example.com");
@@ -17,7 +18,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:7777/login",
+        BASE_URL + "/login",
         {
           email,
           password,
@@ -26,11 +27,20 @@ const Login = () => {
       );
       dispatch(addUser(res.data));
       navigate("/");
-      toast.success(`Welcome, ${res.data.firstName}! 🎉`);
+      toast.success(`Welcome, ${res.data.firstName}! 🎉`, {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     } catch (err) {
       toast.error("Login failed. Please check your credentials. ❌", {
         position: "top-right",
-        autoClose: 5000,
+        autoClose: 2000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: false,
