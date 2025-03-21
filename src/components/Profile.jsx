@@ -6,7 +6,9 @@ const Profile = () => {
 
   return (
     <div>
-      <p>user.photoUrl</p>
+      <div>
+        <img src={user.data.photoUrl} className="rounded-full h-12" />
+      </div>
     </div>
   );
 };

@@ -15,7 +15,9 @@ export const Navbar = () => {
     await axios.delete( BASE_URL + "/logout", {
       withCredentials: true,
     });
+    console.log("Logged out successfully.");
     navigate("/login");
+    console.log("Logged out successfully. X2");
     dispatch(removeUser());
     toast.success("Logged out successfully.", {
       position: "top-right",
@@ -40,7 +42,7 @@ export const Navbar = () => {
       {user && (
         <div className="flex items-center">
           <div>
-            <p>Welcome, {user.firstName}.</p>
+            <p>Welcome, {user.data.firstName}.</p>
           </div>
           <div className="dropdown dropdown-end mx-5">
             <div
@@ -53,8 +55,8 @@ export const Navbar = () => {
                   alt="Tailwind CSS Navbar component"
                   src={
                     user
-                      ? user.photoUrl !== ""
-                        ? user.photoUrl
+                      ? user.data.photoUrl !== ""
+                        ? user.data.photoUrl
                         : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                       : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                   }

@@ -27,7 +27,7 @@ const Login = () => {
       );
       dispatch(addUser(res.data));
       navigate("/");
-      toast.success(`Welcome, ${res.data.firstName}! 🎉`, {
+      toast.success(`Welcome, ${res.data.data.firstName}! 🎉`, {
         position: "top-right",
         autoClose: 2000,
         hideProgressBar: false,
