@@ -12,23 +12,23 @@ export const Navbar = () => {
   const dispatch = useDispatch();
 
   const logout = async () => {
-    await axios.delete( BASE_URL + "/logout", {
-      withCredentials: true,
-    });
-    console.log("Logged out successfully.");
-    navigate("/login");
-    console.log("Logged out successfully. X2");
-    dispatch(removeUser());
-    toast.success("Logged out successfully.", {
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeOnClick: false,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
+    try {
+      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
+      dispatch(removeUser());
+      toast.success("Logged out successfully.", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return navigate("/login");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -74,7 +74,7 @@ export const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to="/connections">Connections</Link>
               </li>
               <li>
                 <a onClick={logout}>Logout</a>

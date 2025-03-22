@@ -10,12 +10,14 @@ const Login = () => {
   const [email, setEmailId] = useState("yash@example.com");
   const [password, setPassword] = useState("Yash@123");
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
   const user = useSelector((store) => store.user);
 
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
+    setErrorMessage("");
     try {
       const res = await axios.post(
         BASE_URL + "/login",
@@ -38,6 +40,8 @@ const Login = () => {
         theme: "dark",
       });
     } catch (err) {
+      setErrorMessage(err?.response?.data?.message || "Something went wrong!");
+      console.error(err);
       toast.error("Login failed. Please check your credentials. ❌", {
         position: "top-right",
         autoClose: 2000,
@@ -48,7 +52,6 @@ const Login = () => {
         progress: undefined,
         theme: "dark",
       });
-      console.log(err);
     }
   };
 
@@ -79,6 +82,9 @@ const Login = () => {
               />
             </fieldset>
           </div>
+          {errorMessage.length > 0 && (
+            <p className="text-red-600 text-center">{errorMessage}</p>
+          )}
           <div className="card-actions justify-center mt-4">
             <button onClick={handleLogin} className="btn btn-primary">
               Login
