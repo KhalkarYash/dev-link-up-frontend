@@ -25,8 +25,18 @@ const Feed = () => {
     getFeed();
   }, []);
 
+  if (!feed) return null;
+
+  if ((feed?.data).length <= 0) {
+    return (
+      <div className="flex justify-center my-10 mb-40">
+        <h1 className="text-bold text-2xl">No new accounts found!</h1>
+      </div>
+    );
+  }
+
   return (
-    feed && (
+    feed?.data?.length > 0 && (
       <div className="flex justify-center my-10 mb-40">
         <UserCard
           key={feed?.data[0]._id}

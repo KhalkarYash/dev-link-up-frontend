@@ -5,6 +5,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../utils/constants";
+import { removeAllConnections } from "../utils/connectionSlice";
+import { removeAllFeed } from "../utils/feedSlice";
+import { removeAllRequests } from "../utils/requestSlice";
 
 export const Navbar = () => {
   const user = useSelector((store) => store.user);
@@ -15,6 +18,9 @@ export const Navbar = () => {
     try {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
+      dispatch(removeAllConnections());
+      dispatch(removeAllFeed());
+      dispatch(removeAllRequests());
       toast.success("Logged out successfully.", {
         position: "top-right",
         autoClose: 2000,

@@ -25,7 +25,7 @@ const Connections = () => {
 
   if (!connections) return null;
 
-  if (connections.length === 0) {
+  if ((connections?.data).length === 0) {
     return (
       <div className="flex justify-center my-10 mb-40">
         <h1 className="text-bold text-2xl">No connections found!</h1>
@@ -38,13 +38,14 @@ const Connections = () => {
       <h1 className="text-bold text-4xl">Connections</h1>
 
       {(connections?.data).map((connection, index) => {
+        if (!connection) return null;
         const { photoUrl, firstName, lastName, age, gender, about, skills } =
           connection;
-
+        console.log(connection);
         return (
           <div
             key={index}
-            className="flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto"
+            className="flex m-4 p-4 rounded-lg bg-base-300 w-[90%] md:w-[80%] lg:w-1/2 mx-auto"
           >
             <div>
               <img
@@ -59,7 +60,7 @@ const Connections = () => {
               </h2>
               {age && gender && <p>{age + ", " + gender}</p>}
               <p>{about}</p>
-              <p>{skills}</p>
+              <p>{skills.join(", ")}</p>
             </div>
           </div>
         );

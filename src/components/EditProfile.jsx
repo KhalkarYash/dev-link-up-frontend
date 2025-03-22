@@ -127,8 +127,12 @@ const EditProfile = ({ user }) => {
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Skills</legend>
                 <input
-                  value={skills.toString()}
-                  onChange={(e) => setSkills(e.target.value)}
+                  value={skills.join(", ")}
+                  onChange={(e) =>
+                    setSkills(
+                      e.target.value.split(",").map((skill) => skill.trim())
+                    )
+                  }
                   type="text"
                   className="input"
                   placeholder="Type here"
