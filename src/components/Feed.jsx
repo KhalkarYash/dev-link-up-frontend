@@ -28,9 +28,11 @@ const Feed = () => {
   return (
     feed && (
       <div className="flex justify-center my-10 mb-40">
-        {feed?.data.map((data) => (
-          <UserCard key={data._id} user={data} preview={false} />
-        ))}
+        <UserCard
+          key={feed?.data[0]._id}
+          user={feed?.data[0]}
+          preview={false}
+        />
       </div>
     )
   );
