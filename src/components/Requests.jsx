@@ -19,13 +19,27 @@ const Requests = () => {
     }
   };
 
+  const reviewRequests = async (status, id) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + `/request/review/${status}/${id}`,
+        {},
+        { withCredentials: true }
+      );
+      console.log("Request " + status);
+      getRequests();
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   useEffect(() => {
     getRequests();
   }, []);
 
   if (!requests) return null;
 
-  if (requests.length === 0) {
+  if (requests?.data.length === 0) {
     return (
       <div className="flex justify-center my-10 mb-40">
         <h1 className="text-bold text-2xl">No requests found!</h1>
@@ -37,7 +51,7 @@ const Requests = () => {
     <div className="text-center my-10 mb-40">
       <h1 className="text-bold text-4xl">Connection Requests</h1>
 
-      {(requests?.data).map((request, index) => {
+      {(requests?.data).map((request) => {
         const { photoUrl, firstName, lastName, age, gender, about, skills } =
           request?.fromUserId;
 
@@ -62,8 +76,22 @@ const Requests = () => {
               <p>{skills}</p>
             </div>
             <div className="max-w-max">
-              <button className="btn btn-primary mx-2">Primary</button>
-              <button className="btn btn-secondary mx-2">Secondary</button>
+              <button
+                className="btn btn-primary mx-2"
+                onClick={() =>
+                  reviewRequests("rejected", requests?.data[0]?.fromUserId?._id)
+                }
+              >
+                Reject
+              </button>
+              <button
+                className="btn btn-secondary mx-2"
+                onClick={() =>
+                  reviewRequests("accepted", requests?.data[0]?.fromUserId?._id)
+                }
+              >
+                Accept
+              </button>
             </div>
           </div>
         );
