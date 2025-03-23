@@ -160,10 +160,12 @@ const EditProfile = ({ user }) => {
           </div>
         </div>
       </div>
+      <div className="flex justify-center md:block">
       <UserCard
         user={{ firstName, lastName, age, skills, about, photoUrl, gender }}
         preview={true}
       />
+      </div>
     </div>
   );
 };
