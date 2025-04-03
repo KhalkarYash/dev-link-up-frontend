@@ -41,7 +41,6 @@ const Connections = () => {
         if (!connection) return null;
         const { photoUrl, firstName, lastName, age, gender, about, skills } =
           connection;
-        console.log(connection);
         return (
           <div
             key={index}

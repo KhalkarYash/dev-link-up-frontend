@@ -5,11 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFeed } from "../utils/feedSlice";
 
 const UserCard = ({ user, preview }) => {
-  console.log(user);
   const { photoUrl, firstName, lastName, age, about, skills, gender } = user;
   const userStore = useSelector((store) => store.user);
+  const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
-  console.log(userStore);
 
   const sendRequest = async (status, userId) => {
     try {

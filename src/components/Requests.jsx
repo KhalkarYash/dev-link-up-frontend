@@ -26,7 +26,6 @@ const Requests = () => {
         {},
         { withCredentials: true }
       );
-      console.log("Request " + status);
       getRequests();
     } catch (err) {
       console.error(err);

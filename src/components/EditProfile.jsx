@@ -20,7 +20,6 @@ const EditProfile = ({ user }) => {
 
   const saveProfile = async () => {
     try {
-      console.log("start");
       const res = await axios.patch(
         BASE_URL + "/profile/edit",
         {
@@ -34,7 +33,6 @@ const EditProfile = ({ user }) => {
         },
         { withCredentials: true }
       );
-      console.log("mid");
       dispatch(addUser(res.data));
       toast.success("Profile updated successfully! 🎉", {
         position: "top-right",
@@ -46,7 +44,6 @@ const EditProfile = ({ user }) => {
         progress: undefined,
         theme: "dark",
       });
-      console.log("end");
     } catch (err) {
       setErrorMessage(err?.response?.data?.message || "Something went wrong!");
       console.error(err);
