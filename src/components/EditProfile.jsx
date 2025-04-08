@@ -14,6 +14,7 @@ const EditProfile = ({ user }) => {
   const [photoUrl, setPhotoUrl] = useState(user?.data?.photoUrl);
   const [about, setAbout] = useState(user?.data?.about);
   const [skills, setSkills] = useState(user?.data?.skills || []);
+  const isPremium = user?.data?.isPremium;
   const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
@@ -158,10 +159,19 @@ const EditProfile = ({ user }) => {
         </div>
       </div>
       <div className="flex justify-center md:block">
-      <UserCard
-        user={{ firstName, lastName, age, skills, about, photoUrl, gender }}
-        preview={true}
-      />
+        <UserCard
+          user={{
+            firstName,
+            lastName,
+            age,
+            skills,
+            about,
+            photoUrl,
+            gender,
+            isPremium,
+          }}
+          preview={true}
+        />
       </div>
     </div>
   );

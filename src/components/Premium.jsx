@@ -1,8 +1,28 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constants";
+import { useSelector } from "react-redux";
 
 const Premium = () => {
+  const user = useSelector((store) => store.user);
+  console.log(user);
+  const [isPremiumUser, setIsPremiumUser] = useState(
+    user.data.isPremium || false
+  );
+
+  useEffect(() => {
+    verifyPremiumUser();
+  }, []);
+
+  const verifyPremiumUser = async () => {
+    const res = await axios.get(BASE_URL + "/premium/verify", {
+      withCredentials: true,
+    });
+    if (res.data.isPremium) {
+      setIsPremiumUser(true);
+    }
+  };
+
   const handleByClick = async (type) => {
     const order = await axios.post(
       BASE_URL + "/payment/create",
@@ -32,16 +52,21 @@ const Premium = () => {
       theme: {
         color: "#F37254",
       },
+      handler: verifyPremiumUser,
     };
 
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
 
-  return (
+  return isPremiumUser ? (
+    <div className="text-center mt-10 text-2xl">
+      You are already a Premium User!
+    </div>
+  ) : (
     <div className="m-10">
       <div className="flex w-full">
-        <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center">
+        <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center p-4">
           <h1 className="font-bold text-3xl">Silver Membership</h1>
           <ul>
             <li>Chat with other people</li>

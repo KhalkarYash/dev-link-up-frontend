@@ -182,7 +182,10 @@ const Login = () => {
             </fieldset>
           </div>
           <p
-            onClick={() => setIsLoginForm(!isLoginForm)}
+            onClick={() => {
+              setIsLoginForm(!isLoginForm);
+              setErrorMessage("");
+            }}
             className="text-center cursor-pointer"
           >
             {isLoginForm

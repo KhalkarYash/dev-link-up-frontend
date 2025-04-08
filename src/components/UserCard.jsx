@@ -5,7 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFeed } from "../utils/feedSlice";
 
 const UserCard = ({ user, preview }) => {
-  const { photoUrl, firstName, lastName, age, about, skills, gender } = user;
+  const {
+    photoUrl,
+    firstName,
+    lastName,
+    age,
+    about,
+    skills,
+    gender,
+    isPremium,
+  } = user;
+  console.log(isPremium);
   const userStore = useSelector((store) => store.user);
   const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
@@ -36,7 +46,16 @@ const UserCard = ({ user, preview }) => {
       </figure>
       <div className="card-body">
         <div className="flex justify-between">
-          <h1 className="card-title">{`${firstName} ${lastName}`}</h1>
+          <h1 className="card-title">
+            {`${firstName} ${lastName}`}
+            {isPremium === true && (
+              <img
+                className="h-[1em] inline-block align-middle"
+                src="https://png.pngtree.com/png-vector/20230408/ourmid/pngtree-instagram-bule-tick-insta-blue-star-vector-png-image_6695210.png"
+                alt="Verified Badge"
+              />
+            )}
+          </h1>
           <h1 className="card-title">
             {`${age},
             ${
