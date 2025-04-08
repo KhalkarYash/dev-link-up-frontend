@@ -7,14 +7,25 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Build output
 node_modules
 dist
 dist-ssr
-*.local
+
+# Environment
+.env
+.env.*
+
+# Git
+.git
+.gitignore
+
+# Docs
+README.md
+*.md
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
+.vscode
 .idea
 .DS_Store
 *.suo
@@ -22,4 +33,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-.vercel
