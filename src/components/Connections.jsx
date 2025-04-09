@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
+import { Link } from "react-router-dom";
 
 const Connections = () => {
   const dispatch = useDispatch();
@@ -39,27 +40,42 @@ const Connections = () => {
 
       {(connections?.data).map((connection, index) => {
         if (!connection) return null;
-        const { photoUrl, firstName, lastName, age, gender, about, skills } =
-          connection;
+        const {
+          _id,
+          photoUrl,
+          firstName,
+          lastName,
+          age,
+          gender,
+          about,
+          skills,
+        } = connection;
         return (
           <div
             key={index}
-            className="flex m-4 p-4 rounded-lg bg-base-300 w-[90%] md:w-[80%] lg:w-1/2 mx-auto"
+            className="flex justify-between m-4 p-4 rounded-lg bg-base-300 w-[90%] md:w-[80%] lg:w-1/2 mx-auto"
           >
-            <div>
-              <img
-                className="w-20 h-20 rounded-full object-cover"
-                alt="Profile Photo"
-                src={photoUrl}
-              />
+            <div className="flex">
+              <div>
+                <img
+                  className="w-20 h-20 rounded-full object-cover"
+                  alt="Profile Photo"
+                  src={photoUrl}
+                />
+              </div>
+              <div className="text-left mx-4">
+                <h2 className="font-bold text-xl">
+                  {firstName + " " + lastName}
+                </h2>
+                {age && gender && <p>{age + ", " + gender}</p>}
+                <p>{about}</p>
+                <p>{skills.join(", ")}</p>
+              </div>
             </div>
-            <div className="text-left mx-4">
-              <h2 className="font-bold text-xl">
-                {firstName + " " + lastName}
-              </h2>
-              {age && gender && <p>{age + ", " + gender}</p>}
-              <p>{about}</p>
-              <p>{skills.join(", ")}</p>
+            <div className="my-auto">
+              <Link to={"/chat/" + _id}>
+                <button className="btn btn-primary">Chat</button>
+              </Link>
             </div>
           </div>
         );

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Navbar from "./Navbar";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Footer from "./Footer";
 import { ToastContainer } from "react-toastify";
 import { BASE_URL } from "../utils/constants";
@@ -11,6 +11,7 @@ import axios from "axios";
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const fetchUser = async () => {
     try {
@@ -20,15 +21,17 @@ const Body = () => {
       dispatch(addUser(res.data));
     } catch (err) {
       if (err?.response.status === 401) {
-          navigate("/login");
+        navigate("/login");
       }
       console.error(err);
     }
   };
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    if (location.pathname !== "/login") {
+      fetchUser();
+    }
+  }, [location.pathname]);
 
   return (
     <div>
