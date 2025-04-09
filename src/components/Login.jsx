@@ -16,10 +16,19 @@ const Login = () => {
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState();
   const [gender, setGender] = useState();
+  const [loading, setLoading] = useState(false);
 
   const user = useSelector((store) => store.user);
 
   const dispatch = useDispatch();
+
+  const initiateLogin = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      handleLogin();
+    }, 1000);
+  };
 
   const handleLogin = async () => {
     setErrorMessage("");
@@ -33,6 +42,7 @@ const Login = () => {
         { withCredentials: true }
       );
       dispatch(addUser(res.data));
+      setLoading(false);
       navigate("/");
       toast.success(`Welcome, ${res.data.data.firstName}! 🎉`, {
         position: "top-right",
@@ -58,6 +68,14 @@ const Login = () => {
         theme: "dark",
       });
     }
+  };
+
+  const initiateSignUp = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      handleSignup();
+    }, 1000);
   };
 
   const handleSignup = async () => {
@@ -197,10 +215,16 @@ const Login = () => {
           )}
           <div className="card-actions justify-center mt-4">
             <button
-              onClick={isLoginForm ? handleLogin : handleSignup}
+              onClick={isLoginForm ? initiateLogin : initiateSignUp}
               className="btn btn-primary"
             >
-              {isLoginForm ? "Login" : "Signup"}
+              {loading ? (
+                <span className="loading loading-spinner loading-xl"></span>
+              ) : isLoginForm ? (
+                "Login"
+              ) : (
+                "Signup"
+              )}
             </button>
           </div>
         </div>

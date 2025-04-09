@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 const Premium = () => {
   const user = useSelector((store) => store.user);
-  console.log(user);
   const [isPremiumUser, setIsPremiumUser] = useState(
     user.data.isPremium || false
   );
@@ -33,7 +32,6 @@ const Premium = () => {
     );
 
     // Open Razorpay Dialog Box
-    console.log(order.data);
     const { amount, key, currency, notes, orderId } = order.data;
 
     const options = {

@@ -15,7 +15,6 @@ const UserCard = ({ user, preview }) => {
     gender,
     isPremium,
   } = user;
-  console.log(isPremium);
   const userStore = useSelector((store) => store.user);
   const feed = useSelector((store) => store.feed);
   const dispatch = useDispatch();
