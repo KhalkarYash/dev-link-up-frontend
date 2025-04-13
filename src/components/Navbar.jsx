@@ -89,6 +89,9 @@ export const Navbar = () => {
                 <Link to="/requests">Requests</Link>
               </li>
               <li>
+                <Link to="/change-password">Update Password</Link>
+              </li>
+              <li>
                 <a onClick={logout}>Logout</a>
               </li>
             </ul>

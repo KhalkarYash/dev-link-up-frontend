@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -18,19 +18,10 @@ const Login = () => {
   const [gender, setGender] = useState();
   const [loading, setLoading] = useState(false);
 
-  const user = useSelector((store) => store.user);
-
   const dispatch = useDispatch();
 
-  const initiateLogin = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      handleLogin();
-    }, 1000);
-  };
-
   const handleLogin = async () => {
+    setLoading(true);
     setErrorMessage("");
     try {
       const res = await axios.post(
@@ -67,18 +58,13 @@ const Login = () => {
         progress: undefined,
         theme: "dark",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
-  const initiateSignUp = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      handleSignup();
-    }, 1000);
-  };
-
   const handleSignup = async () => {
+    setLoading(true);
     try {
       const res = await axios.post(
         BASE_URL + "/signup",
@@ -92,20 +78,24 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      toast.success(`${firstName} registered! Please login to continue. 🎉`, {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
-      return navigate("/");
+      dispatch(addUser(res.data));
+      toast.success(
+        `${firstName} registered! Update your profile and start connecting.🎉`,
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        }
+      );
+      return navigate("/profile");
     } catch (err) {
       console.log(err);
-      setErrorMessage(err.message);
+      setErrorMessage(err?.response?.data?.message || "Something went wrong!");
       toast.error("Registration failed. Please try again. ❌", {
         position: "top-right",
         autoClose: 2000,
@@ -116,6 +106,8 @@ const Login = () => {
         progress: undefined,
         theme: "dark",
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -215,7 +207,7 @@ const Login = () => {
           )}
           <div className="card-actions justify-center mt-4">
             <button
-              onClick={isLoginForm ? initiateLogin : initiateSignUp}
+              onClick={isLoginForm ? handleLogin : handleSignup}
               className="btn btn-primary"
             >
               {loading ? (

@@ -75,7 +75,7 @@ const EditProfile = ({ user }) => {
                   onChange={(e) => setFirstName(e.target.value)}
                   type="text"
                   className="input"
-                  placeholder="Type here"
+                  placeholder="What's your first name?"
                 />
               </fieldset>
               <fieldset className="fieldset">
@@ -85,7 +85,7 @@ const EditProfile = ({ user }) => {
                   onChange={(e) => setLastName(e.target.value)}
                   type="text"
                   className="input"
-                  placeholder="Type here"
+                  placeholder="What's your last name?"
                 />
               </fieldset>
               <fieldset className="fieldset">
@@ -95,7 +95,7 @@ const EditProfile = ({ user }) => {
                   onChange={(e) => setAge(e.target.value)}
                   type="text"
                   className="input"
-                  placeholder="Type here"
+                  placeholder="What's your age?"
                 />
               </fieldset>
               <fieldset className="fieldset">
@@ -105,7 +105,9 @@ const EditProfile = ({ user }) => {
                   onChange={(e) => setGender(e.target.value)}
                   className="input"
                 >
-                  <option value="">Select Gender</option>
+                  <option value="" disabled>
+                    Select Gender
+                  </option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                   <option value="others">Other</option>
@@ -118,7 +120,7 @@ const EditProfile = ({ user }) => {
                   value={about}
                   onChange={(e) => setAbout(e.target.value)}
                   type="text"
-                  placeholder="Type here"
+                  placeholder="Type your bio here"
                   className="textarea resize-none"
                 />
               </fieldset>
@@ -133,7 +135,7 @@ const EditProfile = ({ user }) => {
                   }
                   type="text"
                   className="input"
-                  placeholder="Type here"
+                  placeholder="Eg, Skill 1, Skill 2, Skill 3"
                 />
               </fieldset>
               <fieldset className="fieldset">
@@ -143,7 +145,7 @@ const EditProfile = ({ user }) => {
                   onChange={(e) => setPhotoUrl(e.target.value)}
                   type="text"
                   className="input"
-                  placeholder="Type here"
+                  placeholder="Paste URL of your pic"
                 />
               </fieldset>
             </div>

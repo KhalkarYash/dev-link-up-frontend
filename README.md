@@ -10,6 +10,7 @@ DevLinkUp is a web application designed to connect developers based on their ski
 - Match with other developers for collaboration
 - Send and receive connection requests
 - Real-time chat with connected developers
+- Upgrade to Gold or Silver membership plan
 
 ## Technologies Used
 
@@ -18,8 +19,22 @@ DevLinkUp is a web application designed to connect developers based on their ski
 - **Vite**: Frontend build tool for fast development
 - **Axios**: HTTP client for API requests
 - **Socket.IO**: Real-time communication for messaging
+- **Razorpay**: Razorpay payments to upgrade to premium features
 
 ## Getting Started
+
+### Screenshots
+
+![Screenshot 1](./DLP1.JPG)
+
+![Screenshot 2](./DLP2.JPG)
+
+![Screenshot 3](./DLP3.JPG)
+
+![Screenshot 4](./DLP4.JPG)
+
+![Screenshot 5](./DLP5.JPG)
+
 
 ### Prerequisites
 

@@ -51,8 +51,16 @@ const Requests = () => {
       <h1 className="text-bold text-4xl">Connection Requests</h1>
 
       {(requests?.data).map((request) => {
-        const { photoUrl, firstName, lastName, age, gender, about, skills } =
-          request?.fromUserId;
+        const {
+          photoUrl,
+          firstName,
+          lastName,
+          age,
+          gender,
+          about,
+          skills,
+          _id: id,
+        } = request?.fromUserId;
 
         return (
           <div
@@ -77,17 +85,13 @@ const Requests = () => {
             <div className="max-w-max">
               <button
                 className="btn btn-primary mx-2"
-                onClick={() =>
-                  reviewRequests("rejected", requests?.data[0]?.fromUserId?._id)
-                }
+                onClick={() => reviewRequests("rejected", id)}
               >
                 Reject
               </button>
               <button
                 className="btn btn-secondary mx-2"
-                onClick={() =>
-                  reviewRequests("accepted", requests?.data[0]?.fromUserId?._id)
-                }
+                onClick={() => reviewRequests("accepted", id)}
               >
                 Accept
               </button>
