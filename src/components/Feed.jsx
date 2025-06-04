@@ -22,12 +22,14 @@ const Feed = () => {
   };
 
   useEffect(() => {
-    getFeed();
-  }, []);
+    if (!feed || !feed.data) {
+      getFeed();
+    }
+  }, [feed]);
 
   if (!feed) return null;
 
-  if ((feed?.data).length <= 0) {
+  if (feed.data.length <= 0) {
     return (
       <div className="flex justify-center my-10 mb-40">
         <h1 className="text-bold text-2xl">No new accounts found!</h1>
