@@ -21,7 +21,7 @@ const EditProfile = ({ user }) => {
 
   const saveProfile = async () => {
     try {
-      const res = await axios.patch(
+      const res = await axios.put(
         BASE_URL + "/profile/edit",
         {
           firstName,
