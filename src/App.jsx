@@ -10,6 +10,7 @@ import Requests from "./components/Requests";
 import Premium from "./components/Premium";
 import Chat from "./components/Chat";
 import ChangePassword from "./components/ChangePassword";
+import LandingPage from "./components/LandingPage";
 
 function App() {
   return (
@@ -17,15 +18,19 @@ function App() {
       <Provider store={appStore}>
         <BrowserRouter basename="/">
           <Routes>
+            {/* Public / unauthenticated routes */}
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
+
+            {/* Protected / app layout routes */}
             <Route path="/" element={<Body />}>
-              <Route path="/" element={<Feed />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/premium" element={<Premium />} />
-              <Route path="/requests" element={<Requests />} />
-              <Route path="/connections" element={<Connections />} />
-              <Route path="/change-password" element={<ChangePassword />} />
-              <Route path="/chat/:targetUserId" element={<Chat />} />
+              <Route path="/feed" element={<Feed />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="premium" element={<Premium />} />
+              <Route path="requests" element={<Requests />} />
+              <Route path="connections" element={<Connections />} />
+              <Route path="change-password" element={<ChangePassword />} />
+              <Route path="chat/:targetUserId" element={<Chat />} />
             </Route>
           </Routes>
         </BrowserRouter>

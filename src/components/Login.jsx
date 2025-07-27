@@ -1,24 +1,26 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../utils/constants";
+import { Eye, EyeOff } from "lucide-react";
 
 const Login = () => {
   const [email, setEmailId] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isLoginForm, setIsLoginForm] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [age, setAge] = useState();
-  const [gender, setGender] = useState();
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoginForm, setIsLoginForm] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     setLoading(true);
@@ -26,36 +28,21 @@ const Login = () => {
     try {
       const res = await axios.post(
         BASE_URL + "/login",
-        {
-          email,
-          password,
-        },
+        { email, password },
         { withCredentials: true }
       );
       dispatch(addUser(res.data));
-      setLoading(false);
-      navigate("/");
       toast.success(`Welcome, ${res.data.data.firstName}! 🎉`, {
         position: "top-right",
         autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
+      navigate("/feed");
     } catch (err) {
       setErrorMessage(err?.response?.data?.message || "Something went wrong!");
-      console.error(err);
       toast.error("Login failed. Please check your credentials. ❌", {
         position: "top-right",
         autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
     } finally {
@@ -79,31 +66,17 @@ const Login = () => {
         { withCredentials: true }
       );
       dispatch(addUser(res.data));
-      toast.success(
-        `${firstName} registered! Update your profile and start connecting.🎉`,
-        {
-          position: "top-right",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        }
-      );
-      return navigate("/profile");
+      toast.success(`${firstName} registered! Start connecting 🎉`, {
+        position: "top-right",
+        autoClose: 2000,
+        theme: "dark",
+      });
+      navigate("/profile");
     } catch (err) {
-      console.log(err);
       setErrorMessage(err?.response?.data?.message || "Something went wrong!");
       toast.error("Registration failed. Please try again. ❌", {
         position: "top-right",
         autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
         theme: "dark",
       });
     } finally {
@@ -112,114 +85,118 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center my-10">
-      <div className="card bg-base-300 w-96 shadow-sm">
-        <div className="card-body">
-          <h2 className="card-title justify-center">
-            {isLoginForm ? "Login" : "Signup"}
-          </h2>
-          <div>
-            {!isLoginForm && (
-              <fieldset className="fieldset mt-4">
-                <legend className="fieldset-legend">First Name</legend>
-                <input
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  type="text"
-                  className="input"
-                  placeholder="First Name"
-                />
-              </fieldset>
-            )}
-            {!isLoginForm && (
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Last Name</legend>
-                <input
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  type="text"
-                  className="input"
-                  placeholder="Last Name"
-                />
-              </fieldset>
-            )}
-            {!isLoginForm && (
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Age</legend>
-                <input
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                  type="text"
-                  className="input"
-                  placeholder="Age"
-                />
-              </fieldset>
-            )}
-            {!isLoginForm && (
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Gender</legend>
-                <select
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value)}
-                  className="input"
-                >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="others">Other</option>
-                </select>
-              </fieldset>
-            )}
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Email Id</legend>
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-neutral)] text-[var(--color-text)] px-4 py-12">
+      <div className="w-full max-w-md bg-[var(--color-base)] rounded-2xl shadow-lg p-6 sm:p-8 transition-all duration-300 space-y-5 border border-[var(--color-border)]">
+        <h2 className="text-2xl font-bold text-center text-[var(--color-primary)]">
+          {isLoginForm ? "Login to DevLinkUp" : "Create your account"}
+        </h2>
+
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            isLoginForm ? handleLogin() : handleSignup();
+          }}
+          className="space-y-4"
+        >
+          {!isLoginForm && (
+            <>
               <input
-                value={email}
-                onChange={(e) => setEmailId(e.target.value)}
-                type="email"
-                className="input"
-                placeholder="Type here"
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="First Name"
+                className="input input-bordered w-full"
+                required
               />
-            </fieldset>
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Password</legend>
               <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password"
-                className="input"
-                placeholder="Type here"
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Last Name"
+                className="input input-bordered w-full"
+                required
               />
-            </fieldset>
-          </div>
-          <p
-            onClick={() => {
-              setIsLoginForm(!isLoginForm);
-              setErrorMessage("");
-            }}
-            className="text-center cursor-pointer"
-          >
-            {isLoginForm
-              ? "New User? Register here."
-              : "Already registered? Login here."}
-          </p>
-          {errorMessage.length > 0 && (
-            <p className="text-red-600 text-center">{errorMessage}</p>
+              <input
+                type="number"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                placeholder="Age"
+                min={1}
+                className="input input-bordered w-full"
+                required
+              />
+              <select
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                className="select select-bordered w-full"
+              >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="others">Other</option>
+              </select>
+            </>
           )}
-          <div className="card-actions justify-center mt-4">
+
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmailId(e.target.value)}
+            placeholder="Email"
+            className="input input-bordered w-full"
+            required
+          />
+
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="input input-bordered w-full pr-10"
+              required
+              minLength={6}
+            />
             <button
-              onClick={isLoginForm ? handleLogin : handleSignup}
-              className="btn btn-primary"
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute !bg-transparent cursor-pointer inset-y-0 right-2 flex items-center text-gray-400 hover:text-[var(--color-primary)]"
+              tabIndex={-1}
             >
-              {loading ? (
-                <span className="loading loading-spinner loading-xl"></span>
-              ) : isLoginForm ? (
-                "Login"
-              ) : (
-                "Signup"
-              )}
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
           </div>
-        </div>
+
+          {errorMessage && (
+            <p className="text-red-500 text-sm text-center">{errorMessage}</p>
+          )}
+
+          <button
+            type="submit"
+            className="btn btn-primary w-full tracking-wide transition-transform hover:scale-[1.01] disabled:opacity-50"
+            disabled={loading}
+          >
+            {loading ? (
+              <span className="loading loading-spinner"></span>
+            ) : isLoginForm ? (
+              "Login"
+            ) : (
+              "Sign Up"
+            )}
+          </button>
+
+          <p
+            onClick={() => {
+              setIsLoginForm((prev) => !prev);
+              setErrorMessage("");
+            }}
+            className="text-sm text-center text-[var(--color-primary)] hover:underline cursor-pointer mt-2"
+          >
+            {isLoginForm
+              ? "New user? Register here."
+              : "Already registered? Login here."}
+          </p>
+        </form>
       </div>
     </div>
   );

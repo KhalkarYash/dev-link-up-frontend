@@ -19,22 +19,26 @@ DevLinkUp is a web application designed to connect developers based on their ski
 - **Vite**: Frontend build tool for fast development
 - **Axios**: HTTP client for API requests
 - **Socket.IO**: Real-time communication for messaging
+- **Framer Motion**: Animation library for smooth transitions and interactive UI animations
 - **Razorpay**: Razorpay payments to upgrade to premium features
 
 ## Getting Started
 
 ### Screenshots
 
-![Screenshot 1](./DLP1.JPG)
+![Screenshot 1](./DLP1.png)
 
-![Screenshot 2](./DLP2.JPG)
+![Screenshot 2](./DLP2.png)
 
-![Screenshot 3](./DLP3.JPG)
+![Screenshot 3](./DLP3.png)
 
-![Screenshot 4](./DLP4.JPG)
+![Screenshot 4](./DLP4.png)
 
-![Screenshot 5](./DLP5.JPG)
+![Screenshot 5](./DLP5.png)
 
+![Screenshot 6](./DLP6.png)
+
+![Screenshot 7](./DLP7.png)
 
 ### Prerequisites
 

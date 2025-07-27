@@ -1,2 +1,106 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* ========== LIGHT THEME ========== */
+:root {
+  --color-primary: #7f5af0; /* Soft Purple (Primary actions) */
+  --color-secondary: #fbbf24; /* Amber Yellow (Highlights) */
+  --color-accent: #2cb67d; /* Vibrant Green (Success, CTA) */
+  --color-neutral: #f8fafc; /* Light background */
+  --color-base: #ffffff; /* Base card / content background */
+  --color-text: #1e293b; /* Rich dark text */
+  --color-border: #e2e8f0; /* Light border */
+  --color-muted: #64748b; /* Muted text color */
+  --color-error: #ef4444; /* Destructive red */
+  --color-success: #22c55e; /* Positive green */
+}
+
+/* ========== DARK THEME ========== */
+[data-theme="dark"] {
+  --color-primary: #7f5af0; /* Same Purple (stands out on black) */
+  --color-secondary: #facc15; /* Gold-Yellow highlight */
+  --color-accent: #2cb67d; /* Green CTA/Sucess */
+  --color-neutral: #0a0a0a; /* Dark background */
+  --color-base: #161616; /* Elevated surface */
+  --color-text: #f1f5f9; /* Almost white text */
+  --color-border: #2c2c2c; /* Sharp border */
+  --color-muted: #94a3b8; /* Muted light gray-blue */
+  --color-error: #fb7185; /* Warning/Error */
+  --color-success: #4ade80; /* Green for dark bg */
+}
+
+/* ========== BASE GLOBAL STYLES ========== */
+body {
+  background-color: var(--color-neutral);
+  color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  @apply text-white scroll-smooth;
+  font-family: "Inter", sans-serif;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+/* ========== FORM ELEMENTS ========== */
+input,
+textarea,
+select {
+  background-color: var(--color-base);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+/* ========== BUTTONS ========== */
+button {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  border: none;
+}
+
+button:hover {
+  background-color: #6844e2;
+}
+
+/* ========== UTILITIES ========== */
+.bg-card {
+  background-color: var(--color-base);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.text-muted {
+  color: var(--color-muted);
+}
+
+.border-default {
+  border: 1px solid var(--color-border);
+}
+
+/* Spinner size override for button */
+.loading-md {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-width: 2px;
+}
+
+/* Optional: Add a glowing effect to borders */
+.glow-border {
+  box-shadow: 0 0 10px #0ea5e9, 0 0 20px #0ea5e9;
+}

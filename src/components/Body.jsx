@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import Navbar from "./Navbar";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Footer from "./Footer";
@@ -13,7 +13,7 @@ const Body = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const fetchUser = async () => {
+  const fetchUser = useCallback(async () => {
     try {
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
@@ -25,13 +25,13 @@ const Body = () => {
       }
       console.error(err);
     }
-  };
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     if (location.pathname !== "/login") {
       fetchUser();
     }
-  }, [location.pathname]);
+  }, [location.pathname, fetchUser]);
 
   return (
     <div>
