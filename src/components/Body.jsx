@@ -34,7 +34,7 @@ const Body = () => {
   }, [location.pathname, fetchUser]);
 
   return (
-    <div>
+    <div className="h-fit">
       <Navbar />
       <ToastContainer />
       <Outlet />

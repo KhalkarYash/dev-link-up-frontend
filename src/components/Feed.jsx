@@ -43,7 +43,7 @@ const Feed = () => {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
+      <div className="flex justify-center min-h-screen items-center h-64">
         <span className="loading loading-spinner loading-lg"></span>
       </div>
     );
@@ -52,7 +52,7 @@ const Feed = () => {
   if (!feed || feed.data?.length === 0) {
     return (
       <div className="flex justify-center py-10 min-h-screen pb-40 text-center">
-        <h1 className="font-bold text-2xl text-gray-500">
+        <h1 className="font-bold text-2xl text-[var(--color-muted)]">
           🎉 You&lsquo;re all caught up! <br />
           No new accounts for now.
         </h1>
